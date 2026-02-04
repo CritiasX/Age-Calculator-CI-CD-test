@@ -14,7 +14,7 @@ export default function Welcome() {
             if(today.getMonth() <= birthdate.getMonth()){
                 console.log(name + " is turning " + age);
             }else{
-                console.log(name + "is " + age);
+                console.log(name + " is " + age);
             }
         }
     }
@@ -28,14 +28,13 @@ export default function Welcome() {
                 </h1>
                 <input type="text"
                        onChange={(e) => setName(e.target.value)}
-
-                       className={"m-4"}/>
+                       className={"m-4 rounded-md"}/>
                 <form method="post" onSubmit={calculateAge}>
-                    <input type="date" name="birthdate" required />
+                    <input className={"rounded-md"} type="date" name="birthdate" required />
                     <div className="mt-4 ml-4">
                         <input type="submit"
                                value="Calculate Age"
-                               className="px-4 py-2 bg-blue-500 text-white rounded hover:scale-120 cursor-pointer"/>
+                               className="px-4 py-2 bg-[#04141b] hover:bg-blue-400 text-white rounded-md cursor-pointer"/>
                     </div>
                 </form>
             </div>

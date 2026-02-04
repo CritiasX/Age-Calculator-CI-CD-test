@@ -1,2 +1,40 @@
 name: Test workflow CI
-on:
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: [8.4]
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use PHP ${{ matrix.php }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, xml, ctype, json, bcmath, pdo_sqlite
+          coverage: none
+
+      - run: composer install
+      - run: cp .env.example .env
+      - run: php artisan key:generate
+
+      - name: Prepare Database
+        run: |
+          touch database/database.sqlite
+          php artisan migrate --force
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - run: npm ci
+      - run: npm run build
+      - run: npm test
