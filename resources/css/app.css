@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+html {
+    color: #04141b;
+    @apply text-[#04141b];
+}
+p {
+    @apply text-[#04141b]/70;
+}
+body {
+  @apply bg-[#efece3];
+}
